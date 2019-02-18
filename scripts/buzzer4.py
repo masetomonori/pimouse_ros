@@ -26,7 +26,6 @@ def exec_music(goal):
         if music.is_preempt_requested():
             write_freq(0)
             r.finished = False
-            r.finished = False
             music.set_preempted(r)
             return
 

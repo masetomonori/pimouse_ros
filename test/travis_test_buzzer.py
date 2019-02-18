@@ -35,15 +35,8 @@ class BuzzerTest(unittest.TestCase):
         self.client.wait_for_result()
 
         self.assertTrue(self.client.get_result(), "invalid result")
-
-        rospy.loginfo(goal.freqs)
-        rospy.loginfo(self.device_values)
-
-        #self.assertEqual(goal.freqs, self.device_values, "invalid feedback:" +  ".".join([str(e) for e in self.device_values]))
-        self.assertEqual(goal.freqs, self.device_values, str(goal.freqs) + str(self.device_values))
+        self.assertEqual(goal.freqs, self.device_values, "invalid feedback:" +  ".".join([str(e) for e in self.device_values]))
         self.assertEqual(goal.freqs, self.device_values, self.device_values)
-
-
 
         ### preemption ###
         self.device_values = []
@@ -56,7 +49,7 @@ class BuzzerTest(unittest.TestCase):
     def feedback_cb(self, feedback):
         with open("/dev/rtbuzzer0", "r") as f:
             data = f.readline()
-            self.device_values.append(int(deta.rstrip()))
+            self.device_values.append(int(data.rstrip()))
 
 if __name__ == '__main__':
     time.sleep(3)
